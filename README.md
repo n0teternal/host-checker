@@ -1,123 +1,110 @@
-🛰️ host-checker
-Простая CLI-утилита для быстрой проверки доступности хостов (ping) из списка.
-Фокус — простота запуска, читаемые логи и внятное README. ⚡️
-![alt text](https://img.shields.io/badge/python-3.10%2B-blue)
-
-![alt text](https://img.shields.io/badge/license-MIT-green)
-
-![alt text](https://img.shields.io/github/actions/workflow/status/n0teternal/host-checker/ci.yml?branch=main&label=CI)
-🎯 Ключевые возможности
-Быстрая диагностика: Мгновенно показывает, какие хосты в сети доступны, а какие нет.
-Гибкий ввод: Работает с IP-адресами и DNS-именами.
-Сохранение результатов: Позволяет сохранить отчёт о проверке в CSV-файл для дальнейшего анализа.
-Прозрачность: Минималистичный код на стандартной библиотеке Python без внешних зависимостей.
-📋 Требования
-Python 3.10+
-Системная команда ping в PATH:
-Windows: Встроено по умолчанию.
-Linux/macOS: Обычно предустановлен (пакет iputils-ping или аналог).
-🚀 Установка и запуск
-1. Клонирование репозитория
 code
-Bash
-git clone https://github.com/n0teternal/host-checker.git
-cd host-checker
-2. (Опционально) Создание виртуального окружения
-Это хорошая практика, чтобы изолировать проект.
-code
-Bash
-# Linux / macOS
-python -m venv .venv
-source .venv/bin/activate
+JSON
+download
+content_copy
+expand_less
 
-# Windows (Command Prompt)
-python -m venv .venv
-.venv\Scripts\activate
-3. Подготовка списка хостов
-Создайте в корне проекта файл hosts.csv и добавьте в него адреса для проверки — по одному на строку.
-Пример hosts.csv:
-code
-Text
-8.8.8.8
-1.1.1.1
-ya.ru
-github.com
-invalid-host-name.local
-4. Запуск проверки
-code
-Bash
-python main.py
-Скрипт начнёт последовательно проверять хосты и выводить результат в консоль.
-📊 Примеры вывода
-Вывод в консоль
-Результат отображается в реальном времени с указанием статуса и времени отклика (RTT).
-code
-Text
-[12:03:11] ya.ru        OK    23 ms
-[12:03:12] 8.8.8.8      OK    21 ms
-[12:03:13] 1.1.1.1      FAIL  timeout
-[12:03:14] github.com   OK    34 ms
-Файл лога log.csv
-Если включена опция сохранения в файл, будет создан (или дополнен) CSV-лог с подробной информацией.
-code
-Csv
-timestamp,host,status,rtt_ms
-2025-09-14T12:03:11,ya.ru,OK,23
-2025-09-14T12:03:12,8.8.8.8,OK,21
-2025-09-14T12:03:13,1.1.1.1,FAIL,
-2025-09-14T12:03:14,github.com,OK,34
-💡 Особенности платформ
-Windows: Команда ping использует ключ /w для указания таймаута в миллисекундах.
-Linux/macOS: Команда ping обычно использует ключ -W (таймаут в секундах) или -t (общий таймаут). На некоторых системах для ICMP-пакетов могут потребоваться повышенные привилегии (sudo), но вызов через subprocess чаще всего работает без них.
-❓ FAQ
-Почему некоторые домены пингуются нестабильно?
-Это может быть связано с работой CDN, фильтрами ICMP на стороне хоста или блокировками провайдера. Помните, что успешный ping подтверждает только доступность хоста на сетевом уровне (L3), но не гарантирует работоспособность веб-сервиса (L7).
-Можно ли запускать проверки параллельно?
-Текущая версия выполняет проверки последовательно. Возможность параллельного запуска запланирована в Roadmap с использованием concurrent.futures.
-Нужен ли requirements.txt?
-Нет, так как проект использует только стандартную библиотеку Python. Если вы захотите добавить инструменты для разработки (линтеры, тесты), их можно будет указать в requirements-dev.txt.
-🗺️ План развития (Roadmap)
-
-CLI-параметры (argparse):
---hosts — путь к файлу с хостами (по умолчанию hosts.csv).
---count — количество пакетов для отправки (по умолчанию 1).
---timeout — таймаут ожидания ответа в секундах.
---out — путь к файлу для сохранения CSV-лога.
-
-Улучшенный CSV-лог: Гарантированная запись заголовка и корректный сброс буфера (flush) после каждой строки.
-
-Параллельные проверки: Добавить ThreadPool для одновременной проверки нескольких хостов с флагом --workers.
-
-Расширенный формат входа: Поддержка CSV с двумя колонками: host,description, чтобы в лог попадало и описание.
-
-Коды возврата процесса:
-0 — все хосты доступны.
-1 — часть хостов недоступна.
-2 — ошибка (например, не найден файл hosts.csv).
-
-CI/CD: Настроить GitHub Actions для запуска линтера (flake8/ruff) и тестов при каждом push.
-
-Добавить LICENSE: Добавить файл с текстом лицензии MIT в корень проекта.
-🗂️ Структура проекта
-code
-Text
-host-checker/
-├─ main.py             # Основной исполняемый скрипт
-├─ hosts.csv           # Пример файла с хостами для проверки
-├─ log.csv             # (Опционально) Файл с результатами
-├─ README.md           # Этот файл
-├─ .gitignore          # Файл для исключения мусора из Git
-└─ tests/              # (Опционально) Юнит-тесты
-🛠️ Разработка
-Для участия в разработке рекомендуется установить инструменты форматирования и линтинга.
-code
-Bash
-# Установка dev-зависимостей
-pip install black flake8 pytest
-
-# Запуск инструментов
-black .
-flake8 .
-pytest -q
-📝 Лицензия
-Проект распространяется по лицензии MIT. Подробности смотрите в файле LICENSE.
+{
+  "projectName": "Network Ping Checker",
+  "description": "A simple, yet effective Python script to monitor network device availability and log their status to a CSV file. Built for personal network diagnostics and demonstrating basic network automation skills.",
+  "features": [
+    "Customizable Host List: Reads IP addresses from `hosts.csv` for flexible monitoring.",
+    "Real-time Status Check: Pings each host to determine its online/offline status.",
+    "Detailed Logging: Records timestamps, IP addresses, and status to `log.csv` for historical analysis.",
+    "Cross-Platform Compatibility: Uses `subprocess` for `ping` command, supporting both Windows and Unix-like systems."
+  ],
+  "useCases": [
+    {
+      "title": "Home Network Monitoring",
+      "description": "Keep an eye on your router, smart devices, or PCs. Ever wonder why your Wi-Fi suddenly dropped? This can tell you."
+    },
+    {
+      "title": "Troubleshooting Gaming Lag (e.g., Valorant)",
+      "description": "When your online game suddenly disconnects or lags, quickly check if it's your local network, your ISP, or the game server itself."
+    },
+    {
+      "title": "Basic Network Health Checks",
+      "description": "Verify the uptime of critical devices in a small office or lab environment."
+    },
+    {
+      "title": "Pre/Post-Configuration Verification",
+      "description": "After making network changes (like VLAN or firewall rules), quickly confirm which devices are reachable."
+    }
+  ],
+  "usageInstructions": {
+    "prerequisites": [
+      "Python 3.x installed.",
+      "Git installed (for cloning this repository)."
+    ],
+    "installation": [
+      {
+        "step": 1,
+        "instruction": "Clone the repository:",
+        "command": "git clone https://github.com/n0teternal/network-ping-checker.git"
+      },
+      {
+        "step": 2,
+        "instruction": "Navigate into the project directory:",
+        "command": "cd network-ping-checker"
+      }
+    ],
+    "configuration": {
+      "file": "hosts.csv",
+      "steps": [
+        "Open `hosts.csv` in the project directory.",
+        "Add the IP addresses you want to monitor, one IP per line."
+      ],
+      "example": "8.8.8.8\n1.1.1.1\n192.168.1.1"
+    },
+    "running": {
+      "instruction": "Open your terminal or command prompt in the `network-ping-checker` directory and run the script using Python.",
+      "commands": [
+        {
+          "platform": "Windows",
+          "command": "py main.py"
+        },
+        {
+          "platform": "Linux/macOS",
+          "command": "python3 main.py"
+        }
+      ],
+      "output": "The script will print the status of each host to the console and log results to `log.csv`."
+    }
+  },
+  "projectStructure": {
+    "root": "network-ping-checker/",
+    "files": [
+      {
+        "name": "main.py",
+        "description": "The core Python script for pinging and logging."
+      },
+      {
+        "name": "hosts.csv",
+        "description": "List of IP addresses to monitor."
+      },
+      {
+        "name": ".gitignore",
+        "description": "Tells Git to ignore temporary files like 'log.csv'."
+      },
+      {
+        "name": "README.md",
+        "description": "This file, explaining the project."
+      }
+    ]
+  },
+  "futureImprovements": [
+    "Add email or Telegram notifications for offline devices.",
+    "Implement a loop for continuous monitoring with a delay.",
+    "Integrate with a simple web interface (Flask/Django) for dashboard view.",
+    "Add more detailed ping statistics (latency, packet loss).",
+    "Convert to an executable for easier distribution."
+  ],
+  "author": {
+    "name": "Iliya Berezenets",
+    "github": "https://github.com/n0teternal",
+    "telegram": "@notttt_eternal"
+  },
+  "contribution": {
+    "message": "Feel free to connect, open issues, or suggest improvements!"
+  }
+}
