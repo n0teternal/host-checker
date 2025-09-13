@@ -40,7 +40,6 @@ This script is more than just a basic ping tool. It's designed for practical, re
 2.  **Navigate into the project directory:**
     ```bash
     cd host-checker
-    ``` :contentReference[oaicite:3]{index=3}  
 
 ### Configuration
 
