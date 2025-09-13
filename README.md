@@ -1,110 +1,100 @@
-code
-JSON
-download
-content_copy
-expand_less
+---
 
-{
-  "projectName": "Network Ping Checker",
-  "description": "A simple, yet effective Python script to monitor network device availability and log their status to a CSV file. Built for personal network diagnostics and demonstrating basic network automation skills.",
-  "features": [
-    "Customizable Host List: Reads IP addresses from `hosts.csv` for flexible monitoring.",
-    "Real-time Status Check: Pings each host to determine its online/offline status.",
-    "Detailed Logging: Records timestamps, IP addresses, and status to `log.csv` for historical analysis.",
-    "Cross-Platform Compatibility: Uses `subprocess` for `ping` command, supporting both Windows and Unix-like systems."
-  ],
-  "useCases": [
-    {
-      "title": "Home Network Monitoring",
-      "description": "Keep an eye on your router, smart devices, or PCs. Ever wonder why your Wi-Fi suddenly dropped? This can tell you."
-    },
-    {
-      "title": "Troubleshooting Gaming Lag (e.g., Valorant)",
-      "description": "When your online game suddenly disconnects or lags, quickly check if it's your local network, your ISP, or the game server itself."
-    },
-    {
-      "title": "Basic Network Health Checks",
-      "description": "Verify the uptime of critical devices in a small office or lab environment."
-    },
-    {
-      "title": "Pre/Post-Configuration Verification",
-      "description": "After making network changes (like VLAN or firewall rules), quickly confirm which devices are reachable."
-    }
-  ],
-  "usageInstructions": {
-    "prerequisites": [
-      "Python 3.x installed.",
-      "Git installed (for cloning this repository)."
-    ],
-    "installation": [
-      {
-        "step": 1,
-        "instruction": "Clone the repository:",
-        "command": "git clone https://github.com/n0teternal/network-ping-checker.git"
-      },
-      {
-        "step": 2,
-        "instruction": "Navigate into the project directory:",
-        "command": "cd network-ping-checker"
-      }
-    ],
-    "configuration": {
-      "file": "hosts.csv",
-      "steps": [
-        "Open `hosts.csv` in the project directory.",
-        "Add the IP addresses you want to monitor, one IP per line."
-      ],
-      "example": "8.8.8.8\n1.1.1.1\n192.168.1.1"
-    },
-    "running": {
-      "instruction": "Open your terminal or command prompt in the `network-ping-checker` directory and run the script using Python.",
-      "commands": [
-        {
-          "platform": "Windows",
-          "command": "py main.py"
-        },
-        {
-          "platform": "Linux/macOS",
-          "command": "python3 main.py"
-        }
-      ],
-      "output": "The script will print the status of each host to the console and log results to `log.csv`."
-    }
-  },
-  "projectStructure": {
-    "root": "network-ping-checker/",
-    "files": [
-      {
-        "name": "main.py",
-        "description": "The core Python script for pinging and logging."
-      },
-      {
-        "name": "hosts.csv",
-        "description": "List of IP addresses to monitor."
-      },
-      {
-        "name": ".gitignore",
-        "description": "Tells Git to ignore temporary files like 'log.csv'."
-      },
-      {
-        "name": "README.md",
-        "description": "This file, explaining the project."
-      }
-    ]
-  },
-  "futureImprovements": [
-    "Add email or Telegram notifications for offline devices.",
-    "Implement a loop for continuous monitoring with a delay.",
-    "Integrate with a simple web interface (Flask/Django) for dashboard view.",
-    "Add more detailed ping statistics (latency, packet loss).",
-    "Convert to an executable for easier distribution."
-  ],
-  "author": {
-    "name": "Iliya Berezenets",
-    "github": "https://github.com/n0teternal",
-    "telegram": "@notttt_eternal"
-  },
-  "contribution": {
-    "message": "Feel free to connect, open issues, or suggest improvements!"
-  }
-}
+# Network Ping Checker 📊
+
+Простой, но эффективный Python-скрипт для мониторинга доступности сетевых устройств и логирования их статуса в CSV-файл. Создан для личной диагностики сети и демонстрации базовых навыков сетевой автоматизации.
+
+---
+
+## 🚀 Ключевые возможности
+
+*   **Гибкий список хостов:** Читает IP-адреса из `hosts.csv` для гибкого мониторинга.
+*   **Проверка в реальном времени:** Пингует каждый хост для определения его статуса (онлайн/офлайн).
+*   **Подробное логирование:** Записывает временные метки, IP-адреса и статусы в `log.csv` для последующего анализа.
+*   **Кроссплатформенность:** Использует `subprocess` для команды `ping`, поддерживая как Windows, так и Unix-подобные системы.
+
+---
+
+## ✨ Зачем этот проект? (Кейсы использования)
+
+Этот скрипт — больше, чем просто базовый инструмент для пинга. Он разработан для практической диагностики сети в реальных условиях и особенно полезен для:
+
+*   **Домашний мониторинг:** Следите за своим роутером, «умными» устройствами или ПК. Задумывались, почему внезапно пропал Wi-Fi? Этот скрипт может подсказать.
+*   **Траблшутинг игровых лагов (например, Valorant):** Когда ваша онлайн-игра внезапно отключается или лагает, быстро проверьте, проблема в вашей локальной сети, у провайдера или на стороне игрового сервера.
+*   **Базовая проверка здоровья сети:** Убедитесь в доступности ключевых устройств в небольшом офисе или лабораторной среде.
+*   **Проверка до и после настроек:** После внесения изменений в сеть (например, правил VLAN или firewall) быстро подтвердите, какие устройства остались доступны.
+
+---
+
+## 🛠 Как использовать
+
+### Требования
+
+*   Установленный Python 3.x.
+*   Установленный Git (для клонирования репозитория).
+
+### Установка
+
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/n0teternal/host-checker.git
+    ```
+2.  **Перейдите в директорию проекта:**
+    ```bash
+    cd host-checker
+    ```
+
+### Конфигурация
+
+1.  **`hosts.csv`:**
+    *   Откройте `hosts.csv` в директории проекта.
+    *   Добавьте IP-адреса, которые вы хотите отслеживать, по одному IP на строку.
+        ```
+        8.8.8.8
+        1.1.1.1
+        192.168.1.1
+        ```
+
+### Запуск скрипта
+
+1.  Откройте терминал или командную строку в директории `host-checker`.
+2.  Запустите скрипт с помощью Python:
+    ```bash
+    py main.py  # Для пользователей Windows
+    # ИЛИ
+    # python3 main.py # Для пользователей Linux/macOS или если 'py' не работает
+    ```
+
+Скрипт выведет статус каждого хоста в консоль и запишет результаты в `log.csv`.
+
+---
+
+## 📂 Структура проекта
+
+```markdown
+host-checker/
+├── main.py      # Основной скрипт для пинга и логирования.
+├── hosts.csv    # Список IP-адресов для мониторинга.
+├── .gitignore   # Указывает Git игнорировать временные файлы, такие как 'log.csv'.
+└── README.md    # Этот файл, объясняющий проект.
+```
+
+---
+
+## 💡 Идеи для развития
+
+*   Добавить уведомления по e-mail или в Telegram для офлайн-устройств.
+*   Реализовать цикл для непрерывного мониторинга с задержкой.
+*   Интегрировать с простым веб-интерфейсом (Flask/Django) для отображения дашборда.
+*   Добавить более детальную статистику пинга (задержка, потеря пакетов).
+*   Собрать в исполняемый файл для удобного распространения.
+
+---
+
+## ✉️ Связь и вклад
+
+Не стесняйтесь связываться, открывать issues или предлагать улучшения!
+
+**GitHub:** [https://github.com/n0teternal](https://github.com/n0teternal)
+**Telegram:** @notttt_eternal
+**Имя:** Iliya Berezenets
