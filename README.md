@@ -35,12 +35,12 @@ This script is more than just a basic ping tool. It's designed for practical, re
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/n0teternal/network-ping-checker.git
+    git clone https://github.com/n0teternal/host-checker.git
     ```
 2.  **Navigate into the project directory:**
     ```bash
-    cd network-ping-checker
-    ```
+    cd host-checker
+    ``` :contentReference[oaicite:3]{index=3}  
 
 ### Configuration
 
